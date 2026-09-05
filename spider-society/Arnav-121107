@@ -1,27 +1,19 @@
 <!--
-  SPIDER-ID CARD — weave your own suit.
-
-  RULES
-  1. Rename this file to <your-github-username>.html
-  2. Internal CSS only — keep it inside the <style> block below.
-  3. No <script> tags. They are stripped and CI will reject them.
-  4. Everything must fit inside 320 x 440. That's the card.
-  5. Keep the four data- attributes on .spider-card — the roster reads them.
-
-  Everything else is yours. Go wild.
+  SPIDER-ID CARD — Arnav-121107
 -->
 <div
   class="spider-card"
-  data-name="Your Name"
-  data-alias="Your Spider-Alias"
-  data-github="your-github-username"
-  data-suit="#E62429"
+  data-name="Arnav Kothawade"
+  data-alias="Spideyy"
+  data-github="Arnav-121107"
+  data-suit="#c0203a"
 >
   <style>
-    /* ── Your suit starts here ──────────────────────────────── */
+    /* ── Suit starts here ──────────────────────────────── */
     .spider-card {
-      --suit: #e62429;
-      --ink: #08080a;
+      --suit: #c0203a;      /* red */
+      --suit-blue: #1f4287; /* bluish accent */
+      --ink: #06060a;
 
       width: 320px;
       height: 440px;
@@ -29,73 +21,211 @@
       padding: 22px;
       font-family: system-ui, sans-serif;
       color: #e8e6e3;
-      background: radial-gradient(circle at 30% 0%, #2a0508, var(--ink) 70%);
+      background: radial-gradient(circle at 30% 0%, #1a0a12, var(--ink) 70%);
       border: 2px solid var(--suit);
       border-radius: 18px;
       overflow: hidden;
       position: relative;
     }
 
-    /* Webbing, drawn with two repeating gradients. Delete it if you like. */
+    /* Webbing, drawn with two repeating gradients, tinted red + blue */
     .spider-card::before {
       content: "";
       position: absolute;
       inset: 0;
       background-image: repeating-linear-gradient(
           45deg,
-          rgba(255, 255, 255, 0.06) 0 1px,
+          rgba(192, 32, 58, 0.08) 0 1px,
           transparent 1px 14px
         ),
-        repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 14px);
+        repeating-linear-gradient(-45deg, rgba(31, 66, 135, 0.10) 0 1px, transparent 1px 14px);
       pointer-events: none;
     }
 
+    /* subtle circuit-like accent glow in the corner, nods to the mech legs */
+    .spider-card::after {
+      content: "";
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(31, 66, 135, 0.22), transparent 65%);
+      pointer-events: none;
+    }
+
+    /* The actual spider web, fanning from the top-right corner */
+    .web-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .web-bg svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes strand-pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.85; }
+    }
+
+    .pulse-strand {
+      animation: strand-pulse 3.2s ease-in-out infinite;
+    }
+
+    /* Halftone dot grain, ties the illustrated web to the photo's gritty texture */
+    .halftone {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.5;
+      mix-blend-mode: overlay;
+      background-image: radial-gradient(circle, rgba(0, 0, 0, 0.9) 1px, transparent 1.4px);
+      background-size: 5px 5px;
+    }
+
     .avatar {
-      width: 84px;
-      height: 84px;
-      border-radius: 14px;
+      width: 88px;
+      height: 88px;
       border: 2px solid var(--suit);
+      box-shadow: 0 0 22px rgba(192, 32, 58, 0.5), 0 0 30px rgba(31, 66, 135, 0.3);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+      background: radial-gradient(circle at 35% 30%, var(--suit) 0%, #7a1526 55%, var(--ink) 100%);
+      /* torn/jagged mask silhouette instead of a clean rounded rect */
+      clip-path: polygon(
+        12% 0%, 40% 4%, 62% 0%, 88% 6%, 100% 18%,
+        96% 40%, 100% 60%, 92% 78%, 100% 92%,
+        78% 100%, 55% 94%, 34% 100%, 10% 92%,
+        14% 70%, 0% 55%, 8% 32%, 0% 12%
+      );
+    }
+
+    .avatar svg,
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
       object-fit: cover;
-      box-shadow: 0 0 22px rgba(230, 36, 41, 0.5);
     }
 
     .alias {
-      margin: 14px 0 2px;
-      font-size: 26px;
-      line-height: 1.05;
+      margin: 16px 0 0;
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1;
       letter-spacing: 0.5px;
-      color: var(--suit);
+      background: linear-gradient(90deg, var(--suit), var(--suit-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tagline {
+      margin: 6px 0 10px;
+      font-family: ui-monospace, monospace;
+      font-size: 9px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--suit);
+      opacity: 0.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    .meta {
+      position: relative;
+      z-index: 1;
+      line-height: 1.35;
     }
 
     .name {
       margin: 0;
-      font-size: 14px;
+      font-size: 13px;
       opacity: 0.75;
     }
 
     .handle {
-      margin-top: 4px;
+      margin: 0;
       font-family: ui-monospace, monospace;
-      font-size: 12px;
-      opacity: 0.55;
+      font-size: 11px;
+      opacity: 0.5;
+    }
+
+    .stats {
+      position: relative;
+      z-index: 1;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .stat-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: ui-monospace, monospace;
+      font-size: 9px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    .stat-label {
+      width: 56px;
+      flex-shrink: 0;
+      opacity: 0.65;
+    }
+
+    .stat-track {
+      flex: 1;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      overflow: hidden;
+    }
+
+    .stat-fill {
+      height: 100%;
+      border-radius: 999px;
+      background: var(--suit);
+    }
+
+    .stat-fill.blue {
+      background: var(--suit-blue);
     }
 
     .skills {
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
-      margin-top: 18px;
+      margin-top: 12px;
       padding: 0;
       list-style: none;
+      position: relative;
+      z-index: 1;
     }
 
     .skills li {
-      padding: 5px 10px;
-      font-size: 12px;
+      padding: 4px 9px;
+      font-size: 10px;
       border: 1px solid var(--suit);
       border-radius: 999px;
-      background: rgba(230, 36, 41, 0.12);
+      background: rgba(192, 32, 58, 0.12);
+    }
+
+    .skills li:nth-child(even) {
+      border-color: var(--suit-blue);
+      background: rgba(31, 66, 135, 0.1);
+      opacity: 0.85;
     }
 
     .footer {
@@ -109,27 +239,78 @@
       font-size: 10px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      opacity: 0.45;
+      opacity: 0.5;
       border-top: 1px solid rgba(255, 255, 255, 0.12);
       padding-top: 10px;
+      z-index: 1;
     }
   </style>
 
-  <!-- Swap the username in this URL for your own -->
-  <img class="avatar" src="https://github.com/your-github-username.png" alt="" />
+  <div class="web-bg">
+    <svg viewBox="0 0 320 440" xmlns="http://www.w3.org/2000/svg">
+      <g fill="none" stroke-width="1.3">
+        <!-- spokes, fanning from the top-right corner -->
+        <path class="pulse-strand" d="M270,20 L320,0" stroke="#c0203a" opacity="0.5" />
+        <path d="M270,20 L320,90" stroke="#1f4287" opacity="0.45" />
+        <path d="M270,20 L320,180" stroke="#c0203a" opacity="0.4" />
+        <path d="M270,20 L250,440" stroke="#1f4287" opacity="0.35" />
+        <path d="M270,20 L120,440" stroke="#c0203a" opacity="0.35" />
+        <path d="M270,20 L0,300" stroke="#1f4287" opacity="0.4" />
+        <path d="M270,20 L0,120" stroke="#c0203a" opacity="0.45" />
+        <path d="M270,20 L60,0" stroke="#1f4287" opacity="0.5" />
+        <path d="M270,20 L180,0" stroke="#c0203a" opacity="0.5" />
+        <!-- concentric rings connecting the spokes -->
+        <polyline points="282.5,15 282.5,37.5 282.5,60 265,125 232.5,125 202.5,90 202.5,45 217.5,15 247.5,15"
+                  stroke="#0a0a0c" opacity="0.55" />
+        <polyline points="295,10 295,55 295,100 260,230 195,230 135,160 135,70 165,10 225,10"
+                  stroke="#1f4287" opacity="0.4" />
+        <polyline points="307.5,5 307.5,72.5 307.5,140 255,335 157.5,335 67.5,230 67.5,95 112.5,5 202.5,5"
+                  stroke="#c0203a" opacity="0.3" />
+      </g>
+      <circle cx="270" cy="20" r="3" fill="#0a0a0c" opacity="0.6" />
+    </svg>
+  </div>
 
-  <h1 class="alias">Your Spider-Alias</h1>
-  <p class="name">Your Name</p>
-  <p class="handle">@your-github-username</p>
+  <div class="halftone"></div>
+
+  <div class="avatar" title="Spideyy">
+    <img src="data:image/jpeg;base64,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" alt="Spideyy" />
+  </div>
+
+  <h1 class="alias">Spideyy</h1>
+  <p class="tagline">Friendly Neighborhood // Mech-Arachnid</p>
+
+  <div class="meta">
+    <p class="name">Arnav Kothawade</p>
+    <p class="handle">@Arnav-121107</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat-row">
+      <span class="stat-label">Web-Sling</span>
+      <span class="stat-track"><span class="stat-fill" style="width: 88%"></span></span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Tech</span>
+      <span class="stat-track"><span class="stat-fill blue" style="width: 78%"></span></span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">Agility</span>
+      <span class="stat-track"><span class="stat-fill" style="width: 92%"></span></span>
+    </div>
+  </div>
 
   <ul class="skills">
-    <li>Skill One</li>
-    <li>Skill Two</li>
-    <li>Skill Three</li>
+    <li>Web-Shooters</li>
+    <li>Thermal Insulation</li>
+    <li>Mech Spider-Legs</li>
+    <li>Gauntlet Missiles</li>
+    <li>Nav / Mapping HUD</li>
   </ul>
 
   <div class="footer">
     <span>Spider-Society</span>
     <span>Earth-1610</span>
   </div>
+
 </div>
